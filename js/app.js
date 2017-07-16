@@ -1,4 +1,18 @@
 // Enemies our player must avoid
+
+// RON COMMENTS: From google doc...
+// Part of the code for the Enemy is provided to you, and you will need to complete the following:
+// The Enemy function, which initiates the Enemy by:
+// - Loading the image by setting this.sprite to the appropriate image in the image folder (already provided)
+// - Setting the Enemy initial location (you need to implement)
+//     I assume random based on grid. Canvas is 505 wide by 606 high
+// - Setting the Enemy speed (you need to implement)
+// The update method for the Enemy
+// - Updates the Enemy location (you need to implement)
+// - Handles collision with the Player (you need to implement)
+// - You can add your own Enemy methods as needed
+
+
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -6,6 +20,12 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+
+    //RON COMMENT: Will need x and y position as per the Enemy.render function
+    // Randomly pick a column position. There are 5 possible columns. Multiple by 101 per engine.js render function to get actual x position.
+    this.x = randomposition(1,5) * 101;
+    // Randomly pick an iniital row position. Enemies are on rows 2-4. Multiple by 83 per engine.js render function to get actual y position.
+    this.y = randomposition(2,4) * 83;
 };
 
 // Update the enemy's position, required method for game
@@ -28,6 +48,14 @@ Enemy.prototype.render = function() {
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
+
+// RON COMMENTS: Video only shows three enemies at once. Thought to:
+// - create allenemies array.
+// - define three enemies with initial row, board position and speeds.
+// - Reuse the same enemies (array only ever has three values)
+// - Check each enemies' position, if offscreen randomly select its new row and speed. New position always starts off screen lef of its random row
+
+
 // Place the player object in a variable called player
 
 
@@ -44,3 +72,14 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+// RON COMMENT: Created random row / column function for enemy positioning
+// Called when creating initial position of enemies
+// Called when...
+
+function randomposition(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+};
+
+
