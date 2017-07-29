@@ -21,13 +21,14 @@ var Enemy = function() {
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
 
-    //RON COMMENT: Will need x and y position as per the Enemy.render function
+    //RON COMMENTS: Enemy class called to instantiate (create new) enemies, set their initial x, y positions and speed multiplier
+    // Will need x and y position as per the Enemy.render function
     // Randomly pick a column position. There are 5 possible columns. Multiple by 101 per engine.js render function to get actual x position.
     // REMOVING THIS. ALWAYS START COL 1. this.xposition = randomposition(1,5) * 101;
-    this.xposition = 101;  // Always start column 1
+    this.x = 101;  // Always start column 1
     // Randomly pick an iniital row position. Enemies are on rows 2-4. Multiple by 83 per engine.js render function to get actual y position.
-    this.yposition = randomposition(2,4) * 83; // pick a random row
-    this.speed = "0";
+    this.y = random(2,4) * 83; // pick a random row
+    this.speed = random(1,5); // randomly set the speed to 1 - 5. Will use this with dt param to find next position.
 };
 
 // Update the enemy's position, required method for game
@@ -36,6 +37,9 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+
+
+
 };
 
 // Draw the enemy on the screen, required method for game
@@ -78,8 +82,8 @@ var allEnemies = [
     new Enemy(),
 ];
 // Code to validate enemies created properly
-// console.log("allEnemies0 xposition = " + allEnemies[0].xposition);
-// console.log("allEnemies0 yposition = " + allEnemies[0].yposition);
+// console.log("allEnemies0 x = " + allEnemies[0].xposition);
+// console.log("allEnemies0 y = " + allEnemies[0].yposition);
 // console.log("allEnemies0 speed = " + allEnemies[0].speed);
 
 
@@ -105,7 +109,7 @@ document.addEventListener('keyup', function(e) {
 // Called when creating initial position of enemies
 // Called when...
 
-function randomposition(min,max)
+function random(min,max)
 {
     return Math.floor(Math.random()*(max-min+1)+min);
 };
