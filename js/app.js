@@ -21,7 +21,7 @@ var Enemy = function(enemynumber) {
     this.sprite = 'images/enemy-bug.png';
     //RON COMMENTS: Enemy class called to instantiate (create new) enemies, set their initial x, y positions and speed multiplier
     // Will need x and y position as per the Enemy.render function
-    this.x = 0;  // Change to -101 to start off screen.
+    this.x = -101;  // Change to -101 to start off screen.
     this.y = enemynumber * 83; // set row position base on passed enemynumber.
     this.speed = random(1,5); // randomly set the speed to 1 - 5. Will use this with dt and difficulty param to change position
 };
@@ -30,7 +30,11 @@ var Enemy = function(enemynumber) {
 // Parameter: dt, a time delta between ticks
 //RON COMMENT increment position using randomly picked speed, difficulty level (default 100) and dt param.
 Enemy.prototype.update = function(dt) {
-    this.x = this.x + (this.speed * dt * difficulty)
+    this.x = this.x + (this.speed * dt * difficulty);
+    console.log(this.y + this.x);
+    if (this.x > 505) {
+        this.x = 0;
+   };
 };
 
 // Draw the enemy on the screen, required method for game
