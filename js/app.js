@@ -13,7 +13,7 @@
 // - You can add your own Enemy methods as needed
 
 var difficulty = 100;
-var Enemy = function(enemynumber) {
+var Enemy = function(enemyrow) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     // The image/sprite for our enemies, this uses
@@ -22,7 +22,7 @@ var Enemy = function(enemynumber) {
     //RON COMMENTS: Enemy class called to instantiate (create new) enemies, set their initial x, y positions and speed multiplier
     // Will need x and y position as per the Enemy.render function
     this.x = -101;  // Change to -101 to start off screen.
-    this.y = enemynumber * 83; // set row position base on passed enemynumber.
+    this.y = enemyrow * 83; // set row position base on passed enemynumber.
     this.speed = random(1,5); // randomly set the speed to 1 - 5. Will use this with dt and difficulty param to change position
 };
 
@@ -32,9 +32,10 @@ var Enemy = function(enemynumber) {
 Enemy.prototype.update = function(dt) {
     this.x = this.x + (this.speed * dt * difficulty);
     console.log(this.y + this.x);
+// RON COMMENT: if the enemy is offscreen, replace that enemy in the array with a new enemy created with the enemy class.
     if (this.x > 505) {
-        this.x = 0;
-   };
+        allEnemies[(this.y/83)-1] = new Enemy(this.y/83);
+    };
 };
 
 // Draw the enemy on the screen, required method for game
