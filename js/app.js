@@ -12,34 +12,25 @@
 // - Handles collision with the Player (you need to implement)
 // - You can add your own Enemy methods as needed
 
-
-var Enemy = function() {
+var difficulty = 100;
+var Enemy = function(enemynumber) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-
     //RON COMMENTS: Enemy class called to instantiate (create new) enemies, set their initial x, y positions and speed multiplier
     // Will need x and y position as per the Enemy.render function
-    // Randomly pick a column position. There are 5 possible columns. Multiple by 101 per engine.js render function to get actual x position.
-    // REMOVING THIS. ALWAYS START COL 1. this.xposition = randomposition(1,5) * 101;
-    this.x = 101;  // Always start column 1
-    // Randomly pick an iniital row position. Enemies are on rows 2-4. Multiple by 83 per engine.js render function to get actual y position.
-    this.y = random(2,4) * 83; // pick a random row
-    this.speed = random(1,5); // randomly set the speed to 1 - 5. Will use this with dt param to find next position.
+    this.x = 0;  // Change to -101 to start off screen.
+    this.y = enemynumber * 83; // set row position base on passed enemynumber.
+    this.speed = random(1,5); // randomly set the speed to 1 - 5. Will use this with dt and difficulty param to change position
 };
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
+//RON COMMENT increment position using randomly picked speed, difficulty level (default 100) and dt param.
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-
-
-
+    this.x = this.x + (this.speed * dt * difficulty)
 };
 
 // Draw the enemy on the screen, required method for game
@@ -77,14 +68,16 @@ Player.prototype.handleInput = function() {
 
 //RON COMMENT: Build enemies using Enemy class (contructor). Creats each enemy and assigns variables.
 var allEnemies = [
-    new Enemy(),
-    new Enemy(),
-    new Enemy(),
+    new Enemy(1),
+    new Enemy(2),
+    new Enemy(3),
 ];
+
+
 // Code to validate enemies created properly
-// console.log("allEnemies0 x = " + allEnemies[0].xposition);
-// console.log("allEnemies0 y = " + allEnemies[0].yposition);
-// console.log("allEnemies0 speed = " + allEnemies[0].speed);
+console.log("allEnemies0 y = " + allEnemies[0].y);
+console.log("allEnemies1 y = " + allEnemies[1].y);
+console.log("allEnemies2 y = " + allEnemies[2].y);
 
 
 
