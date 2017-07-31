@@ -31,7 +31,7 @@ var Enemy = function(enemyrow) {
 //RON COMMENT increment position using randomly picked speed, difficulty level (default 100) and dt param.
 Enemy.prototype.update = function(dt) {
     this.x = this.x + (this.speed * dt * difficulty);
-    console.log(this.y + this.x);
+   // console.log(this.y + this.x);
 // RON COMMENT: if the enemy is offscreen, replace that enemy in the array with a new enemy created with the enemy class.
     if (this.x > 505) {
         allEnemies[(this.y/83)-1] = new Enemy(this.y/83);
@@ -50,6 +50,9 @@ Enemy.prototype.render = function() {
 //RON comment: Building out skeleton of player class
 
 var Player = function() {
+    this.sprite = 'images/char-boy.png';
+    this.x = 202  // Change to -101 to start off screen.
+    this.y =  5 * 83; // set row position base on passed enemynumber.
 };
 
 Player.prototype.update = function(dt) {
@@ -78,7 +81,6 @@ var allEnemies = [
     new Enemy(3),
 ];
 
-
 // Code to validate enemies created properly
 console.log("allEnemies0 y = " + allEnemies[0].y);
 console.log("allEnemies1 y = " + allEnemies[1].y);
@@ -88,7 +90,7 @@ console.log("allEnemies2 y = " + allEnemies[2].y);
 
 // Place the player object in a variable called player
 //RON COMMENT: Added player var using Player() class. Just skeleton
-var player = Player();
+var player = new Player();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

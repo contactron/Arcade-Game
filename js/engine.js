@@ -94,8 +94,8 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        // RON COMMENT - commented out whil focusing on enemies.
-        //player.update();
+        // RON COMMENT - commented out while focusing on enemies.
+        player.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -152,7 +152,7 @@ var Engine = (function(global) {
             enemy.render();
         });
 
-        // player.render();
+        player.render();
     }
 
     /* This function does nothing but it could have been a good place to
