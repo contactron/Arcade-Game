@@ -1,26 +1,11 @@
-// Enemies our player must avoid
-
-// RON COMMENTS: From google doc...
-// Part of the code for the Enemy is provided to you, and you will need to complete the following:
-// The Enemy function, which initiates the Enemy by:
-// - Loading the image by setting this.sprite to the appropriate image in the image folder (already provided)
-// - Setting the Enemy initial location (you need to implement)
-//     DONE: I assume random based on grid. Canvas is 505 wide by 606 high
-// - Setting the Enemy speed (you need to implement)
-// The update method for the Enemy
-// - Updates the Enemy location (you need to implement)
-// - Handles collision with the Player (you need to implement)
-// - You can add your own Enemy methods as needed
 
 var difficulty = 100;
+
+// Enemies our player must avoid
 var Enemy = function(enemyrow) {
     // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
     //RON COMMENTS: Enemy class called to instantiate (create new) enemies, set their initial x, y positions and speed multiplier
-    // Will need x and y position as per the Enemy.render function
     this.x = -101;  // Change to -101 to start off screen.
     this.y = enemyrow * 83; // set row position base on passed enemynumber.
     this.speed = random(1,5); // randomly set the speed to 1 - 5. Will use this with dt and difficulty param to change position
@@ -62,8 +47,26 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.handleInput = function() {
-
+Player.prototype.handleInput = function(key) {
+    switch(key) {
+        case "left":
+            player.x = player.x - 101;
+            break;
+        case "up":
+            player.y = player.y - 83;
+            break;
+        case "right":
+            player.x = player.x + 101;
+            break;
+        case "down":
+            player.y = player.y + 83;
+            break;
+    };
+        // 37: 'left',
+        // 38: 'up',
+        // 39: 'right',
+        // 40: 'down'
+        console.log(key);
 };
 
 // Now instantiate your objects.
