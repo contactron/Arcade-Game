@@ -102,11 +102,10 @@ var Engine = (function(global) {
      * is to the left and the next enemy position (using leap property)
      * is to the right, then the enemy is just about to pass through the player
      */
-
     function checkCollisions() {
         allEnemies.forEach(function(enemy) {
            //console.log("player = " + player.y + "  Enemy = " + enemy.y);
-           if ((enemy.x <= player.x) && (enemy.x + enemy.leap >= player.x) && (enemy.y == player.y)) {
+           if ((enemy.x + 81 <= player.x) && (enemy.x + 81 + enemy.leap >= player.x) && (enemy.y == player.y)) {
                console.log("COLLISION");
            };
         });
