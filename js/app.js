@@ -9,9 +9,10 @@ var Enemy = function(enemyrow) {
     this.speed = random(1,5); // randomly set the speed to 1-5. Will use this with dt and difficulty param to change position
 };
 
-// Update the enemy's position using randomly picked speed, difficulty level and dt param.
+// Update the enemy's x position.  Determine how far it will "leap" forward using randomly picked speed, difficulty level and dt param. Round to nearest integer and add to the current position. Leap property is used laterin collision detection.
 Enemy.prototype.update = function(dt) {
-    this.x = this.x + (this.speed * dt * difficulty);
+    this.leap = Math.round((this.speed * dt * difficulty));
+    this.x = this.x + this.leap;
 // if the enemy is offscreen, replace that enemy in the array with a new enemy object
     if (this.x > 505) {
         allEnemies[allEnemies.indexOf(this)] = new Enemy(this.y/83);

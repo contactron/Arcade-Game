@@ -80,7 +80,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -96,6 +96,22 @@ var Engine = (function(global) {
         });
         player.update();
     }
+
+    /* Check for collision by testing if the enemy will pass through
+     * the player with the next iteration. If the current enemy position
+     * is to the left and the next enemy position (using leap property)
+     * is to the right, then the enemy is just about to pass through the player
+     */
+
+    function checkCollisions() {
+        allEnemies.forEach(function(enemy) {
+           //console.log("player = " + player.y + "  Enemy = " + enemy.y);
+           if ((enemy.x <= player.x) && (enemy.x + enemy.leap >= player.x) && (enemy.y == player.y)) {
+               console.log("COLLISION");
+           };
+        });
+    }
+
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
