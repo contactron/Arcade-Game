@@ -94,7 +94,6 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        // RON COMMENT - commented out while focusing on enemies.
         player.update();
     }
 

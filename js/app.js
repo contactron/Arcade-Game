@@ -19,7 +19,9 @@ Enemy.prototype.update = function(dt) {
    // console.log(this.y + this.x);
 // RON COMMENT: if the enemy is offscreen, replace that enemy in the array with a new enemy created with the enemy class.
     if (this.x > 505) {
-        allEnemies[(this.y/83)-1] = new Enemy(this.y/83);
+       // allEnemies[(this.y/83)-1] = new Enemy(this.y/83);
+       // Benny's improvement
+        allEnemies[allEnemies.indexOf(this)] = new Enemy(this.y/83);
     };
 };
 
@@ -50,16 +52,24 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(key) {
     switch(key) {
         case "left":
+            if (player.x != 0) {
             player.x = player.x - 101;
+            };
             break;
         case "up":
+            if (player.y != 0) {
             player.y = player.y - 83;
+            };
             break;
         case "right":
+            if (player.x != 404) {
             player.x = player.x + 101;
+            };
             break;
         case "down":
+            if (player.y != 415) {
             player.y = player.y + 83;
+            };
             break;
     };
         // 37: 'left',
@@ -83,12 +93,6 @@ var allEnemies = [
     new Enemy(2),
     new Enemy(3),
 ];
-
-// Code to validate enemies created properly
-console.log("allEnemies0 y = " + allEnemies[0].y);
-console.log("allEnemies1 y = " + allEnemies[1].y);
-console.log("allEnemies2 y = " + allEnemies[2].y);
-
 
 
 // Place the player object in a variable called player
