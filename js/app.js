@@ -1,5 +1,6 @@
 // Create difficulty parameter to use as a speed multiplier. 100 is default but later we can utilize this to let the user select a difficulty for the game.
 var difficulty = 100;
+var pause = false;
 
 // Create an array of different enemy types that can be accessed
 var enemytype = [
@@ -99,6 +100,7 @@ document.addEventListener('keyup', function(e) {
 });
 
 function restartgame() {
+    pause = true;
     setTimeout(function() {
         window.location.reload();
     }, 5000);
