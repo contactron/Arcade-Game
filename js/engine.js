@@ -105,7 +105,8 @@ var Engine = (function(global) {
             var b = enemy.y - player.y;
             var distance = Math.sqrt( a*a + b*b );
             if (distance < 81) {
-               console.log("COLLISION");
+               player.sprite='images/char-boy-crack.png';
+               restartgame();
            };
         });
     }
@@ -186,6 +187,7 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
+        'images/char-boy-crack.png',
         'images/enemy-bug.png',
         'images/enemy-bug-black.png',
         'images/enemy-bug-red.png',

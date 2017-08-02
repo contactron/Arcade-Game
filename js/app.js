@@ -73,7 +73,7 @@ Player.prototype.update = function(key) {
             break;
     };
     if (player.y == 0) {
-        celebrate();
+        restartgame();
     };
 };
 
@@ -95,18 +95,16 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
     player.update(allowedKeys[e.keyCode]);
 });
 
-
-function celebrate() {
-    console.log("WIN!");
-    };
+function restartgame() {
+    setTimeout(function() {
+        window.location.reload();
+    }, 5000);
+};
 
 // Random function to support enemy speed and other needs. Accepts mim/max values.
 function random(min,max) {
     return Math.floor(Math.random()*(max-min+1)+min);
     };
-
-
