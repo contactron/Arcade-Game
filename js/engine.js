@@ -80,7 +80,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        checkCollisions();
+        checkCollisions2();
     }
 
     /* This is called by the update function and loops through all of the
@@ -97,15 +97,15 @@ var Engine = (function(global) {
         player.update();
     }
 
-    /* Check for collision by testing if the enemy will pass through
-     * the player with the next iteration. If the current enemy position
-     * is to the left and the next enemy position (using leap property)
-     * is to the right, then the enemy is just about to pass through the player
-     */
-    function checkCollisions() {
+    //Check for collision by calculating the distance between the objects. If less than the size of the object a collision has occurred.
+
+    function checkCollisions2() {
         allEnemies.forEach(function(enemy) {
-           //console.log("player = " + player.y + "  Enemy = " + enemy.y);
-           if ((enemy.x + 81 <= player.x) && (enemy.x + 81 + enemy.leap >= player.x) && (enemy.y == player.y)) {
+            var a = enemy.x - player.x;
+            var b = enemy.y - player.y;
+            var distance = Math.sqrt( a*a + b*b );
+            console.log("distance = " + distance);
+            if (distance < 81) {
                console.log("COLLISION");
            };
         });
@@ -186,7 +186,10 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/enemy-bug.png',
+        'images/enemy-bug-black.png',
+        'images/enemy-bug-red.png',
     ]);
     Resources.onReady(init);
 

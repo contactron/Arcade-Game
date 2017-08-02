@@ -1,12 +1,25 @@
 // Create difficulty parameter to use as a speed multiplier. 100 is default but later we can utilize this to let the user select a difficulty for the game.
 var difficulty = 100;
 
+// Create an array of different enemy types that can be accessed
+var enemytype = [
+    'images/enemy-bug.png',
+    'images/enemy-bug-black.png',
+    'images/enemy-bug-red.png',
+    ];
+
 // Instantiate new enemies, set their initial x, y positions, sprite and speed multiplier
 var Enemy = function(enemyrow) {
-    this.sprite = 'images/enemy-bug.png';
+    this.sprite = enemytype[0];
+    //this.sprite = 'images/enemy-bug.png';
+    console.log(this.sprite);
     this.x = -101;  // start off screen.
     this.y = enemyrow * 83; // set row position based on passed enemynumber.
     this.speed = random(1,5); // randomly set the speed to 1-5. Will use this with dt and difficulty param to change position
+    if (this.speed == 5) {  // take the fastest enemy
+        this.speed = this.speed + 2;  // make the enemy even faster
+        this.sprite = enemytype[1];  // make the super fast enemy black
+    };
 };
 
 // Update the enemy's x position.  Determine how far it will "leap" forward using randomly picked speed, difficulty level and dt param. Round to nearest integer and add to the current position. Leap property is used laterin collision detection.
@@ -21,6 +34,7 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen
 Enemy.prototype.render = function() {
+    //console.log(this.sprite);
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
