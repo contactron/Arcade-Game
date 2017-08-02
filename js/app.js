@@ -18,12 +18,6 @@ var enemytype = [
 
     {
     "sprite": 'images/enemy-bug.png',
-    "path": 'sine',
-    "speed": 3,
-    },
-
-    {
-    "sprite": 'images/enemy-bug.png',
     "path": 'linear',
     "speed": 5,
     },
@@ -37,7 +31,7 @@ var enemytype = [
 
 // Instantiate new enemies, set their initial x, y positions taking row input. Randomly pick an enemytype and apply it.
 var Enemy = function(enemyrow) {
-    var randomenemy = random(0,4);
+    var randomenemy = random(0,3);
     this.sprite = enemytype[randomenemy].sprite;
     this.path = enemytype[randomenemy].path;
     this.x = -101;  // start off screen.
@@ -53,7 +47,7 @@ var Enemy = function(enemyrow) {
 Enemy.prototype.update = function(dt) {
     this.x = this.x + (this.speed * dt * difficulty);
     if (this.path == 'sine') {
-        this.y = this.y + (Math.sin(this.x) * 5);
+        this.y = ((allEnemies.indexOf(this)+1)*83) + (5 * Math.sin(this.x ));
     }
 // if the enemy is offscreen, replace that enemy in the array with a new enemy object
     if (this.x > 505) {
@@ -69,11 +63,6 @@ Enemy.prototype.update = function(dt) {
 //         allEnemies[allEnemies.indexOf(this)] = new Enemy(this.y/83);
 //     };
 // };
-
-
-
-
-
 
 
 // Draw the enemy on the screen
