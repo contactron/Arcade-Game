@@ -4,31 +4,77 @@ var pause = false;
 
 // Create an array of different enemy types that can be accessed
 var enemytype = [
-    'images/enemy-bug.png',
-    'images/enemy-bug-black.png',
-    'images/enemy-bug-red.png',
-    ];
+    {
+    "sprite": 'images/enemy-bug.png',
+    "path": 'linear',
+    "speed": 1,
+    },
 
-// Instantiate new enemies, set their initial x, y positions, sprite and speed multiplier
+    {
+    "sprite": 'images/enemy-bug.png',
+    "path": 'linear',
+    "speed": 3,
+    },
+
+    {
+    "sprite": 'images/enemy-bug.png',
+    "path": 'sine',
+    "speed": 3,
+    },
+
+    {
+    "sprite": 'images/enemy-bug.png',
+    "path": 'linear',
+    "speed": 5,
+    },
+
+    {
+    "sprite": 'images/enemy-bug-black.png',
+    "path": 'sine',
+    "speed": 7,
+    },
+];
+
+// Instantiate new enemies, set their initial x, y positions taking row input. Randomly pick an enemytype and apply it.
 var Enemy = function(enemyrow) {
-    this.sprite = enemytype[0];
+    var randomenemy = random(0,4);
+    this.sprite = enemytype[randomenemy].sprite;
+    this.path = enemytype[randomenemy].path;
     this.x = -101;  // start off screen.
-    this.y = enemyrow * 83; // set row position based on passed enemynumber.
-    this.speed = random(1,5); // randomly set the speed to 1-5. Will use this with dt and difficulty param to change position
-    if (this.speed == 5) {  // take the fastest enemy
-        this.speed = this.speed + 2;  // make the enemy even faster
-        this.sprite = enemytype[1];  // make the super fast enemy black
-    };
+    this.y = (enemyrow + 1) * 83; // set row position based on passed enemynumber.
+    this.speed = enemytype[randomenemy].speed; // randomly set the speed to 1-5. Will use this with dt and difficulty param to change position
+    // if (this.speed == 5) {  // take the fastest enemy
+    //     this.speed = this.speed + 2;  // make the enemy even faster
+    //     this.sprite = enemytype[1];  // make the super fast enemy black
+    // };
 };
 
 // Update the enemy's x position.
 Enemy.prototype.update = function(dt) {
     this.x = this.x + (this.speed * dt * difficulty);
+    if (this.path == 'sine') {
+        this.y = this.y + (Math.sin(this.x) * 5);
+    }
 // if the enemy is offscreen, replace that enemy in the array with a new enemy object
     if (this.x > 505) {
-        allEnemies[allEnemies.indexOf(this)] = new Enemy(this.y/83);
+        allEnemies[allEnemies.indexOf(this)] = new Enemy(allEnemies.indexOf(this));
     };
 };
+
+
+// Enemy.prototype.update = function(dt) {
+//     this.x = this.x + (this.speed * dt * difficulty);
+// // if the enemy is offscreen, replace that enemy in the array with a new enemy object
+//     if (this.x > 505) {
+//         allEnemies[allEnemies.indexOf(this)] = new Enemy(this.y/83);
+//     };
+// };
+
+
+
+
+
+
 
 // Draw the enemy on the screen
 Enemy.prototype.render = function() {
@@ -80,9 +126,9 @@ Player.prototype.update = function(key) {
 
 // Create array to hold enemy objects. Add three enemies using enemy class and passing parameter to set their initial row position.
 var allEnemies = [
+    new Enemy(0),
     new Enemy(1),
     new Enemy(2),
-    new Enemy(3),
 ];
 
 // Place the player object in a variable called player
