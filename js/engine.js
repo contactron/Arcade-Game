@@ -104,7 +104,6 @@ var Engine = (function(global) {
             var a = enemy.x - player.x;
             var b = enemy.y - player.y;
             var distance = Math.sqrt( a*a + b*b );
-            console.log("distance = " + distance);
             if (distance < 81) {
                console.log("COLLISION");
            };

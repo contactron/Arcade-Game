@@ -11,8 +11,6 @@ var enemytype = [
 // Instantiate new enemies, set their initial x, y positions, sprite and speed multiplier
 var Enemy = function(enemyrow) {
     this.sprite = enemytype[0];
-    //this.sprite = 'images/enemy-bug.png';
-    console.log(this.sprite);
     this.x = -101;  // start off screen.
     this.y = enemyrow * 83; // set row position based on passed enemynumber.
     this.speed = random(1,5); // randomly set the speed to 1-5. Will use this with dt and difficulty param to change position
@@ -22,10 +20,9 @@ var Enemy = function(enemyrow) {
     };
 };
 
-// Update the enemy's x position.  Determine how far it will "leap" forward using randomly picked speed, difficulty level and dt param. Round to nearest integer and add to the current position. Leap property is used laterin collision detection.
+// Update the enemy's x position.
 Enemy.prototype.update = function(dt) {
-    this.leap = Math.round((this.speed * dt * difficulty));
-    this.x = this.x + this.leap;
+    this.x = this.x + (this.speed * dt * difficulty);
 // if the enemy is offscreen, replace that enemy in the array with a new enemy object
     if (this.x > 505) {
         allEnemies[allEnemies.indexOf(this)] = new Enemy(this.y/83);
@@ -34,7 +31,6 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen
 Enemy.prototype.render = function() {
-    //console.log(this.sprite);
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -45,14 +41,14 @@ var Player = function() {
     this.y = 415; // set starting y position to bottom of screen
 };
 
-Player.prototype.update = function(dt) {
-};
+// Player.prototype.update = function(dt) {
+// };
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.handleInput = function(key) {
+Player.prototype.update = function(key) {
 // For each keystroke, check if movement will take the player offscreen. If not, move that direction.
     switch(key) {
         case "left":
@@ -63,7 +59,7 @@ Player.prototype.handleInput = function(key) {
         case "up":
             if (player.y != 0) {
             player.y = player.y - 83;
-            };
+            }
             break;
         case "right":
             if (player.x != 404) {
@@ -75,6 +71,9 @@ Player.prototype.handleInput = function(key) {
             player.y = player.y + 83;
             };
             break;
+    };
+    if (player.y == 0) {
+        celebrate();
     };
 };
 
@@ -97,13 +96,17 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
 
-    player.handleInput(allowedKeys[e.keyCode]);
+    player.update(allowedKeys[e.keyCode]);
 });
 
+
+function celebrate() {
+    console.log("WIN!");
+    };
+
 // Random function to support enemy speed and other needs. Accepts mim/max values.
-function random(min,max)
-{
+function random(min,max) {
     return Math.floor(Math.random()*(max-min+1)+min);
-};
+    };
 
 
