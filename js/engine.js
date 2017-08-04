@@ -56,17 +56,25 @@ var Engine = (function(global) {
         /* Use the browser's requestAnimationFrame function to call this
          * function again as soon as the browser is able to draw another frame.
          */
-        if (pause == false) {
+
+        //Check the state of the player if alive and playing continue engine cycle
+        // Otherwise, player is either dead or won. If player state is
+        if (player.state == "playing") {
             win.requestAnimationFrame(main);
-            };
+        } else if (player.state == "won") {
+            celebrate();
+            reset();
+        } else {
+            reset();
+        }
     }
+
 
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
      * game loop.
      */
     function init() {
-        reset();
         lastTime = Date.now();
         main();
     }
@@ -82,7 +90,8 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        checkCollisions2();
+        checkCollisions();
+        checkwin();
     }
 
     /* This is called by the update function and loops through all of the
@@ -101,18 +110,23 @@ var Engine = (function(global) {
 
     //Check for collision by calculating the distance between the objects. If less than the size of the object a collision has occurred.
 
-    function checkCollisions2() {
+    function checkCollisions() {
         allEnemies.forEach(function(enemy) {
             var a = enemy.x - player.x;
             var b = enemy.y - player.y;
             var distance = Math.sqrt( a*a + b*b );
             if (distance < 81) {
                player.sprite='images/char-boy-crack.png';
-               restartgame();
+               player.state = "dead";
            };
         });
     }
 
+    function checkwin() {
+        if (player.y == 0) {
+            player.state = "won";
+        };
+    };
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
@@ -171,13 +185,17 @@ var Engine = (function(global) {
         player.render();
     }
 
-    /* This function does nothing but it could have been a good place to
-     * handle game reset states - maybe a new game menu or a game over screen
-     * those sorts of things. It's only called once by the init() method.
-     */
+    // Restart game. Wait 5 seconds and reload the page.
     function reset() {
-        // noop
+        setTimeout(function() {
+        window.location.reload();
+        }, 5000);
     }
+
+
+
+
+
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when

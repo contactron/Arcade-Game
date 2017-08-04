@@ -1,6 +1,5 @@
 // Create difficulty parameter to use as a speed multiplier. 100 is default but later we can utilize this to let the user select a difficulty for the game.
 var difficulty = 100;
-var pause = false;
 
 // Create an array of different enemy types that can be accessed
 var enemytype = [
@@ -75,6 +74,7 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
     this.x = 202;  // Set starting x postion to middle column
     this.y = 415; // set starting y position to bottom of screen
+    this.state = "playing";
 };
 
 // Player.prototype.update = function(dt) {
@@ -108,9 +108,7 @@ Player.prototype.update = function(key) {
             };
             break;
     };
-    if (player.y == 0) {
-        restartgame();
-    };
+
 };
 
 // Create array to hold enemy objects. Add three enemies using enemy class and passing parameter to set their initial row position.
@@ -134,8 +132,22 @@ document.addEventListener('keyup', function(e) {
     player.update(allowedKeys[e.keyCode]);
 });
 
+// Display a message in the center of the screen when the player gets to the top. Win!
+function celebrate() {
+    //Draw box in middle of screen
+    console.log("celebrating");
+    ctx.fillStyle="#00808b";
+    ctx.fillRect(100,200,305,190);
+    // Draw win message
+    ctx.font="36px Arial";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText("YOU WIN!", 252, 309);
+};
+
+
+// Set paust to true to stop the engine from continuing. Wait 5 seconds and then reload the page to restart the game.
 function restartgame() {
-    pause = true;
     setTimeout(function() {
         window.location.reload();
     }, 5000);
