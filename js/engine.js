@@ -57,18 +57,19 @@ var Engine = (function(global) {
          * function again as soon as the browser is able to draw another frame.
          */
 
-        //Check the state of the player if alive and playing continue engine cycle
-        // Otherwise, player is either dead or won. If player state is
+        /* Check the state of the player. If alive and playing continue engine cycle
+        *  Otherwise, player is either dead or has won. If dead - reset.
+        *  If won - display message and reset.
+        */
         if (player.state == "playing") {
             win.requestAnimationFrame(main);
         } else if (player.state == "won") {
-            celebrate();
+            player.celebrate();
             reset();
         } else {
             reset();
         }
     }
-
 
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
@@ -79,15 +80,9 @@ var Engine = (function(global) {
         main();
     }
 
-    /* This function is called by main (our game loop) and itself calls all
-     * of the functions which may need to update entity's data. Based on how
-     * you implement your collision detection (when two entities occupy the
-     * same space, for instance when your character should die), you may find
-     * the need to add an additional function call here. For now, we've left
-     * it commented out - you may or may not want to implement this
-     * functionality this way (you could just implement collision detection
-     * on the entities themselves within your app.js file).
-     */
+    /* Update game. Update enemy and player positions, check for collisions
+     * and whether the player has won.
+    */
     function update(dt) {
         updateEntities(dt);
         checkCollisions();
@@ -108,8 +103,10 @@ var Engine = (function(global) {
         player.update();
     }
 
-    //Check for collision by calculating the distance between the objects. If less than the size of the object a collision has occurred.
-
+    /* Check for collision by calculating the distance between the objects.
+     * If less than the size of the object a collision has occurred.
+     * When a collision occurs, update the enemy image and set the player state to "dead"
+    */
     function checkCollisions() {
         allEnemies.forEach(function(enemy) {
             var a = enemy.x - player.x;
@@ -121,6 +118,10 @@ var Engine = (function(global) {
            };
         });
     }
+
+    /* Check to see if the player has reached the top row and "won".
+     * If so, set player state to "won"
+    */
 
     function checkwin() {
         if (player.y == 0) {
@@ -181,7 +182,6 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
-
         player.render();
     }
 
@@ -191,11 +191,6 @@ var Engine = (function(global) {
         window.location.reload();
         }, 5000);
     }
-
-
-
-
-
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
@@ -208,9 +203,7 @@ var Engine = (function(global) {
         'images/enemy-bug.png',
         'images/char-boy.png',
         'images/char-boy-crack.png',
-        'images/enemy-bug.png',
         'images/enemy-bug-black.png',
-        'images/enemy-bug-red.png',
     ]);
     Resources.onReady(init);
 
