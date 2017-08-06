@@ -85,8 +85,8 @@ var Engine = (function(global) {
     */
     function update(dt) {
         updateEntities(dt);
-        checkCollisions();
-        checkwin();
+        player.checkCollisions();
+        player.checkWin();
     }
 
     /* This is called by the update function and loops through all of the
@@ -102,32 +102,6 @@ var Engine = (function(global) {
         });
         player.update();
     }
-
-    /* Check for collision by calculating the distance between the objects.
-     * If less than the size of the object a collision has occurred.
-     * When a collision occurs, update the enemy image and set the player state to "dead"
-    */
-    function checkCollisions() {
-        allEnemies.forEach(function(enemy) {
-            var a = enemy.x - player.x;
-            var b = enemy.y - player.y;
-            var distance = Math.sqrt( a*a + b*b );
-            if (distance < 81) {
-               player.sprite='images/char-boy-crack.png';
-               player.state = "dead";
-           };
-        });
-    }
-
-    /* Check to see if the player has reached the top row and "won".
-     * If so, set player state to "won"
-    */
-
-    function checkwin() {
-        if (player.y == 0) {
-            player.state = "won";
-        };
-    };
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
