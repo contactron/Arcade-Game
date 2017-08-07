@@ -13,7 +13,6 @@
  * the canvas' context (ctx) object globally available to make writing app.js
  * a little simpler to work with.
  */
-
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -58,17 +57,17 @@ var Engine = (function(global) {
          */
 
         /* Check the state of the player. If alive and playing continue engine cycle
-        *  Otherwise, player is either dead or has won. If dead - reset.
-        *  If won - display message and reset.
-        */
-        if (player.state == "playing") {
+         *  Otherwise, player is either dead or has won. If dead - reset.
+         *  If won - display message and reset.
+         */
+        if (player.state == 'playing') {
             win.requestAnimationFrame(main);
-        } else if (player.state == "won") {
+        } else if (player.state == 'won') {
             player.celebrate();
             reset();
         } else {
             reset();
-        }
+        };
     }
 
     /* This function does some initial setup that should only occur once,
@@ -82,7 +81,7 @@ var Engine = (function(global) {
 
     /* Update game. Update enemy and player positions, check for collisions
      * and whether the player has won.
-    */
+     */
     function update(dt) {
         updateEntities(dt);
         player.checkCollisions();
@@ -114,12 +113,12 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+                'images/water-block.png', // Top row is water
+                'images/stone-block.png', // Row 1 of 3 of stone
+                'images/stone-block.png', // Row 2 of 3 of stone
+                'images/stone-block.png', // Row 3 of 3 of stone
+                'images/grass-block.png', // Row 1 of 2 of grass
+                'images/grass-block.png' // Row 2 of 2 of grass
             ],
             numRows = 6,
             numCols = 5,
@@ -139,8 +138,8 @@ var Engine = (function(global) {
                  * we're using them over and over.
                  */
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
-            }
-        }
+            };
+        };
 
         renderEntities();
     }
@@ -159,10 +158,11 @@ var Engine = (function(global) {
         player.render();
     }
 
-    // Restart game. Wait 5 seconds and reload the page.
+    /* Restart game. Wait 5 seconds and reload the page.
+     */
     function reset() {
         setTimeout(function() {
-        window.location.reload();
+            window.location.reload();
         }, 5000);
     }
 
