@@ -88,23 +88,23 @@ Player.prototype.update = function(key) {
     // For each keystroke, check if movement will take the player offscreen. If not, move that direction.
     switch (key) {
         case 'left':
-            if (player.x != 0) {
-                player.x = player.x - 101;
+            if (this.x != 0) {
+                this.x = this.x - 101;
             };
             break;
         case 'up':
-            if (player.y != 0) {
-                player.y = player.y - 83;
+            if (this.y != 0) {
+                this.y = this.y - 83;
             }
             break;
         case 'right':
-            if (player.x != 404) {
-                player.x = player.x + 101;
+            if (this.x != 404) {
+                this.x = this.x + 101;
             };
             break;
         case 'down':
-            if (player.y != 415) {
-                player.y = player.y + 83;
+            if (this.y != 415) {
+                this.y = this.y + 83;
             };
             break;
     };
@@ -155,8 +155,8 @@ Player.prototype.checkCollisions = function() {
  * If so, set player state to "won"
  */
 Player.prototype.checkWin = function() {
-    if (player.y == 0) {
-        player.state = "won";
+    if (this.y == 0) {
+        this.state = "won";
     };
 };
 
