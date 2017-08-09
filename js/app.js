@@ -140,16 +140,17 @@ document.addEventListener('keyup', function(e) {
  * When a collision occurs, update the enemy image and set the player state to "dead"
  */
 Player.prototype.checkCollisions = function() {
-    allEnemies.forEach(function(enemy) {
-        const a = enemy.x - player.x;
-        const b = enemy.y - player.y;
+    for (i = 0; i < allEnemies.length; i++)  {
+        const a = allEnemies[i].x - this.x;
+        const b = allEnemies[i].y - this.y;
         const distance = Math.sqrt(a * a + b * b);
         if (distance < 81) {
-            player.sprite = 'images/char-boy-crack.png';
-            player.state = 'dead';
+            this.sprite = 'images/char-boy-crack.png';
+            this.state = 'dead';
         };
-    });
+    };
 };
+
 
 /* Check to see if the player has reached the top row and "won".
  * If so, set player state to "won"
